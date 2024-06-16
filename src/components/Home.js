@@ -71,7 +71,7 @@ export default function Home() {
 
       {showGlasses && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-          <div className="bg-green-500 p-8 rounded shadow-lg relative w-full max-w-2xl">
+          <div className="bg-green-500 p-8 rounded shadow-lg relative  ">
             <button className="z-50 absolute top-0 right-0 m-4 text-xl font-bold" onClick={closeModal}>
               &times; Back
             </button>
