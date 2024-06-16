@@ -140,7 +140,7 @@ const VirtualTryOn = ({ GlassesModel }) => {
   }, [model, glassesMesh, glassesSrc]);
 
   return (
-    <div className="relative bg-red-500 lg:h-[600px] lg:w-[600px]   md:h-[400px] md:w-[400px]   h-[300px] w-[300px]">
+    <div className="relative bg-red-500 lg:h-[600px] lg:w-[600px]   h-[400px] w-[400px]   ">
       {isLoading && (
         <div className="absolute top-0 left-0 w-[100%] h-[100%] z-50 opacity-65 flex justify-center items-center bg-gray-200">
           <h3>Loading <span className="text-red-500">{GlassName}</span> </h3>
@@ -150,12 +150,12 @@ const VirtualTryOn = ({ GlassesModel }) => {
         ref={webcamRef}
         autoPlay
         playsInline
-        className="h-[300px] w-[300px] lg:h-[600px] lg:w-[600px]   md:h-[400px] md:w-[400px]   "
+        className="lg:h-[600px] lg:w-[600px]   h-[400px] w-[400px]   "
         mirrored={true}
       />
       <canvas
         ref={canvasRef}
-        className="h-[300px] w-[300px] lg:h-[600px] lg:w-[600px]   md:h-[400px] md:w-[400px]     absolute top-0 left-0"
+        className=" lg:h-[600px] lg:w-[600px]   h-[400px] w-[400px]     absolute top-0 left-0"
       />
     </div>
   );
