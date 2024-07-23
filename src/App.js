@@ -1,10 +1,17 @@
-import logo from './logo.svg';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
-import Home from './components/Home';
+import TryOnButton from './PAGES/GlassPage';
+import NewVirtualTryOn from './PAGES/NewVirtualTryOn';
 
 function App() {
   return (
-    <Home />
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<TryOnButton />} />
+        <Route path="/glasses/" element={<NewVirtualTryOn />} />
+        <Route path="/glasses/:glassesId" element={<NewVirtualTryOn />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
