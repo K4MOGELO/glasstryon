@@ -62,7 +62,7 @@ const Modal = ({ isOpen, onClose, glassesId }) => {
           &times;
         </button>
         <iframe
-          src={`http://localhost:3000/glasses/${glassesId}`}
+          src={`https://glasstryon.vercel.app/glasses/${glassesId}`}
           title="Try On Glasses"
           width="100%"
           height="100%"
