@@ -168,6 +168,32 @@ const NewVirtualTryOn = () => {
     return () => clearInterval(intervalId);
   }, [model, glassesMesh, glassesSrc, scaleMultiplier, offsetX, offsetY]);
 
+
+  useEffect(() => {
+    // Add event listener for messages from the parent window
+    const handleMessage = (event) => {
+      if (event.origin === 'https://omnioptix.co.za') {
+        // Only accept messages from your own domain
+        if (event.data === 'initialize') {
+          console.log('Initialization message received from parent window');
+          // Perform any setup or data fetching needed here
+        }
+      }
+    };
+
+    window.addEventListener('message', handleMessage);
+
+    // Clean up the event listener on component unmount
+    return () => {
+      window.removeEventListener('message', handleMessage);
+    };
+  }, []);
+
+  // Example response to parent window
+  useEffect(() => {
+    window.parent.postMessage('iframe loaded', 'https://omnioptix.co.za');
+  }, []);
+
   return (
     <div className="relative bg-red-500 h-screen w-screen">
 
