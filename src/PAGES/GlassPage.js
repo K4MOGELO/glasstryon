@@ -6,15 +6,14 @@ import glasses01 from './glasses/glasses01.png';
 import glasses02 from './glasses/glasses02.png';
 import glasses03 from './glasses/glasses03.png';
 import glasses04 from './glasses/glasses04.png';
-import glasses05 from './glasses/glasses05.png';
 
 const glassesList = [
   { glassesSrc: glasses01, GlassName: 'glasses01' },
   { glassesSrc: glasses02, GlassName: 'glasses02' },
   { glassesSrc: glasses03, GlassName: 'glasses03' },
   { glassesSrc: glasses04, GlassName: 'glasses04' },
-  { glassesSrc: glasses05, GlassName: 'glasses05' },
 ];
+
 
 const TryOnButton = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -62,7 +61,6 @@ const Modal = ({ isOpen, onClose, glassesId }) => {
           &times;
         </button>
         <iframe
-
           src={`https://glasstryon.vercel.app/glasses/${glassesId}`}
           // src={`http://localhost:3000/glasses/${glassesId}`}
           title="Try On Glasses"

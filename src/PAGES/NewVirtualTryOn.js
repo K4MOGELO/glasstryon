@@ -13,19 +13,15 @@ import glasses01 from './glasses/glasses01.png';
 import glasses02 from './glasses/glasses02.png';
 import glasses03 from './glasses/glasses03.png';
 import glasses04 from './glasses/glasses04.png';
-import glasses05 from './glasses/glasses05.png';
 
 const glassesList = [
   { glassesSrc: glasses01, GlassName: 'glasses01' },
   { glassesSrc: glasses02, GlassName: 'glasses02' },
   { glassesSrc: glasses03, GlassName: 'glasses03' },
   { glassesSrc: glasses04, GlassName: 'glasses04' },
-  { glassesSrc: glasses05, GlassName: 'glasses05' },
 ];
 
 const NewVirtualTryOn = () => {
-
-
   const { glassesId } = useParams();
   const { glassesSrc, GlassName } = glassesList.find(glass => glass.GlassName === glassesId) || {};
 
@@ -36,9 +32,11 @@ const NewVirtualTryOn = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   // State for controlling glasses size and position
-  const [scaleMultiplier, setScaleMultiplier] = useState(1);
-  const [offsetX, setOffsetX] = useState(0);
-  const [offsetY, setOffsetY] = useState(0);
+  const [scaleMultiplier, setScaleMultiplier] = useState(1.98);
+  const [offsetX, setOffsetX] = useState(-0.32);
+  const [offsetY, setOffsetY] = useState(-0.04);
+  // const [offsetX, setOffsetX] = useState(-0.25);
+  // const [offsetY, setOffsetY] = useState(-0.10);
 
   const loadResources = async () => {
     setIsLoading(true);
@@ -168,35 +166,8 @@ const NewVirtualTryOn = () => {
     return () => clearInterval(intervalId);
   }, [model, glassesMesh, glassesSrc, scaleMultiplier, offsetX, offsetY]);
 
-
-  useEffect(() => {
-    // Add event listener for messages from the parent window
-    const handleMessage = (event) => {
-      if (event.origin === 'https://omnioptix.co.za') {
-        // Only accept messages from your own domain
-        if (event.data === 'initialize') {
-          console.log('Initialization message received from parent window');
-          // Perform any setup or data fetching needed here
-        }
-      }
-    };
-
-    window.addEventListener('message', handleMessage);
-
-    // Clean up the event listener on component unmount
-    return () => {
-      window.removeEventListener('message', handleMessage);
-    };
-  }, []);
-
-  // Example response to parent window
-  useEffect(() => {
-    window.parent.postMessage('iframe loaded', 'https://omnioptix.co.za');
-  }, []);
-
   return (
     <div className="relative bg-red-500 h-screen w-screen">
-
       {isLoading && (
         <div className="absolute top-0 left-0 w-full h-full z-50 opacity-65 flex justify-center items-center bg-gray-200">
           <h3>
@@ -215,15 +186,18 @@ const NewVirtualTryOn = () => {
         ref={canvasRef}
         className="h-full w-full absolute top-0 left-0"
       />
-      <div className="absolute bottom-0 left-0 w-full p-4 bg-white bg-opacity-75">
+      <div className="absolute hidden bottom-0 left-0 w-full p-4 bg-white bg-opacity-75">
         <div className="mb-4">
-          <label>Adjast Size:</label>
+          <label>Adjust Size:{scaleMultiplier}</label>
           <Range
             step={0.01}
             min={0.1}
             max={2}
             values={[scaleMultiplier]}
-            onChange={(values) => setScaleMultiplier(values[0])}
+            onChange={(values) => {
+              setScaleMultiplier(values[0])
+              console.log(scaleMultiplier)
+            }}
             renderTrack={({ props, children }) => (
               <div
                 {...props}
@@ -249,13 +223,16 @@ const NewVirtualTryOn = () => {
           />
         </div>
         <div className="mb-4">
-          <label>Adjast Horizontally</label>
+          <label>Adjust Horizontally{offsetX}</label>
           <Range
             step={0.01}
             min={-1}
             max={1}
             values={[offsetX]}
-            onChange={(values) => setOffsetX(values[0])}
+            onChange={(values) => {
+              setOffsetX(values[0])
+              console.log(offsetX)
+            }}
             renderTrack={({ props, children }) => (
               <div
                 {...props}
@@ -281,13 +258,16 @@ const NewVirtualTryOn = () => {
           />
         </div>
         <div className="mb-4">
-          <label>Adjast Vertically:</label>
+          <label>Adjust Vertically:{offsetY}</label>
           <Range
             step={0.01}
             min={-1}
             max={1}
             values={[offsetY]}
-            onChange={(values) => setOffsetY(values[0])}
+            onChange={(values) => {
+              setOffsetY(values[0])
+              console.log(offsetY)
+            }}
             renderTrack={({ props, children }) => (
               <div
                 {...props}
