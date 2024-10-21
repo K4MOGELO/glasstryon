@@ -2,17 +2,26 @@
 // TryOnButton.js
 import React, { useState } from 'react';
 
+// import glasses01 from './glasses/iloveimg-resized/glasses01.png';
+// import glasses02 from './glasses/iloveimg-resized/glasses02.png';
+// import glasses03 from './glasses/iloveimg-resized/glasses03.png';
+
 import glasses01 from './glasses/glasses01.png';
 import glasses02 from './glasses/glasses02.png';
 import glasses03 from './glasses/glasses03.png';
-import glasses04 from './glasses/glasses04.png';
+
+
+
+// import glasses01 from './glasses/crop/glasses01 .jpg';
+// import glasses02 from './glasses/crop/glasses02.jpg';
+// import glasses03 from './glasses/crop/glasses03.jpg';
 
 const glassesList = [
   { glassesSrc: glasses01, GlassName: 'glasses01' },
   { glassesSrc: glasses02, GlassName: 'glasses02' },
   { glassesSrc: glasses03, GlassName: 'glasses03' },
-  { glassesSrc: glasses04, GlassName: 'glasses04' },
 ];
+
 
 
 const TryOnButton = () => {

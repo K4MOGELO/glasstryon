@@ -9,16 +9,24 @@ import * as faceLandmarksDetection from "@tensorflow-models/face-landmarks-detec
 import { Range } from "react-range";
 import { useParams } from 'react-router-dom';
 
+// import glasses01 from './glasses/iloveimg-resized/glasses01.png';
+// import glasses02 from './glasses/iloveimg-resized/glasses02.png';
+// import glasses03 from './glasses/iloveimg-resized/glasses03.png';
+
 import glasses01 from './glasses/glasses01.png';
 import glasses02 from './glasses/glasses02.png';
 import glasses03 from './glasses/glasses03.png';
-import glasses04 from './glasses/glasses04.png';
+
+// import glasses01 from './glasses/crop/glasses01 .jpg';
+// import glasses02 from './glasses/crop/glasses02.jpg';
+// import glasses03 from './glasses/crop/glasses03.jpg';
+
+
 
 const glassesList = [
   { glassesSrc: glasses01, GlassName: 'glasses01' },
   { glassesSrc: glasses02, GlassName: 'glasses02' },
   { glassesSrc: glasses03, GlassName: 'glasses03' },
-  { glassesSrc: glasses04, GlassName: 'glasses04' },
 ];
 
 const NewVirtualTryOn = () => {
@@ -32,9 +40,9 @@ const NewVirtualTryOn = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   // State for controlling glasses size and position
-  const [scaleMultiplier, setScaleMultiplier] = useState(1.98);
-  const [offsetX, setOffsetX] = useState(-0.32);
-  const [offsetY, setOffsetY] = useState(-0.04);
+  const [scaleMultiplier, setScaleMultiplier] = useState(1.5);
+  const [offsetX, setOffsetX] = useState(-0.03);
+  const [offsetY, setOffsetY] = useState(0.03);
   // const [offsetX, setOffsetX] = useState(-0.25);
   // const [offsetY, setOffsetY] = useState(-0.10);
 
@@ -166,8 +174,9 @@ const NewVirtualTryOn = () => {
     return () => clearInterval(intervalId);
   }, [model, glassesMesh, glassesSrc, scaleMultiplier, offsetX, offsetY]);
 
+
   return (
-    <div className="relative bg-red-500 h-screen w-screen">
+    <div className="relative  h-screen w-screen">
       {isLoading && (
         <div className="absolute top-0 left-0 w-full h-full z-50 opacity-65 flex justify-center items-center bg-gray-200">
           <h3>
@@ -186,13 +195,13 @@ const NewVirtualTryOn = () => {
         ref={canvasRef}
         className="h-full w-full absolute top-0 left-0"
       />
-      <div className="absolute hidden bottom-0 left-0 w-full p-4 bg-white bg-opacity-75">
-        <div className="mb-4">
+      <div className="absolute bottom-0 left-0 w-full p-4 bg-white bg-opacity-75">
+        <div className="mb-4 hidden">
           <label>Adjust Size:{scaleMultiplier}</label>
           <Range
             step={0.01}
             min={0.1}
-            max={2}
+            max={4}
             values={[scaleMultiplier]}
             onChange={(values) => {
               setScaleMultiplier(values[0])
@@ -222,8 +231,8 @@ const NewVirtualTryOn = () => {
             )}
           />
         </div>
-        <div className="mb-4">
-          <label>Adjust Horizontally{offsetX}</label>
+        <div className="">
+          <label>Adjust Horizontally</label>
           <Range
             step={0.01}
             min={-1}
@@ -258,7 +267,7 @@ const NewVirtualTryOn = () => {
           />
         </div>
         <div className="mb-4">
-          <label>Adjust Vertically:{offsetY}</label>
+          <label>Adjust Vertically:</label>
           <Range
             step={0.01}
             min={-1}
