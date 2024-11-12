@@ -9,29 +9,18 @@ import * as faceLandmarksDetection from "@tensorflow-models/face-landmarks-detec
 import { Range } from "react-range";
 import { useParams } from 'react-router-dom';
 
-// import glasses01 from './glasses/iloveimg-resized/glasses01.png';
-// import glasses02 from './glasses/iloveimg-resized/glasses02.png';
-// import glasses03 from './glasses/iloveimg-resized/glasses03.png';
-
-import glasses01 from './glasses/glasses01.png';
-import glasses02 from './glasses/glasses02.png';
-import glasses03 from './glasses/glasses03.png';
-
-// import glasses01 from './glasses/crop/glasses01 .jpg';
-// import glasses02 from './glasses/crop/glasses02.jpg';
-// import glasses03 from './glasses/crop/glasses03.jpg';
-
-
-
-const glassesList = [
-  { glassesSrc: glasses01, GlassName: 'glasses01' },
-  { glassesSrc: glasses02, GlassName: 'glasses02' },
-  { glassesSrc: glasses03, GlassName: 'glasses03' },
-];
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../firebase";
 
 const NewVirtualTryOn = () => {
+
   const { glassesId } = useParams();
-  const { glassesSrc, GlassName } = glassesList.find(glass => glass.GlassName === glassesId) || {};
+
+
+
+  const [product, setProduct] = useState(null)
+  const glassesSrc = product?.productImg
+  const GlassName = product?.productName
 
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
@@ -162,6 +151,19 @@ const NewVirtualTryOn = () => {
   };
 
   useEffect(() => {
+
+
+    async function getglass() {
+      const docref = doc(db, "products", glassesId);
+      const docsnap = await getDoc(docref);
+      setProduct(docsnap.data())
+    }
+    console.log("test")
+    getglass()
+  }, []);
+
+  useEffect(() => {
+
     loadResources();
   }, [glassesSrc]);
 
@@ -174,6 +176,7 @@ const NewVirtualTryOn = () => {
     return () => clearInterval(intervalId);
   }, [model, glassesMesh, glassesSrc, scaleMultiplier, offsetX, offsetY]);
 
+  console.log(product)
 
   return (
     <div className="relative  h-screen w-screen">
@@ -258,7 +261,7 @@ const NewVirtualTryOn = () => {
               <div
                 {...props}
                 style={{
-                  height: '16px',
+                  // height: '16px',
                   width: '16px',
                   backgroundColor: '#999',
                 }}
