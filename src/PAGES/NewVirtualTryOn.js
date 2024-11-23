@@ -261,7 +261,7 @@ const NewVirtualTryOn = () => {
               <div
                 {...props}
                 style={{
-                  // height: '16px',
+                  height: '16px',
                   width: '16px',
                   backgroundColor: '#999',
                 }}
